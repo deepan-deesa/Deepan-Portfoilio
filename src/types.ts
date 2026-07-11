@@ -55,7 +55,7 @@ export const PERSONAL_DETAILS = {
   email: "deepanmuthu05@gmail.com",
   phone: "+91 9965585084",
   location: "Coimbatore, Tamilnadu",
-  github: "https://github.com/deepanmuthu05-lang",
+  github: "https://github.com/deepan-deesa",
   linkedin: "https://linkedin.com/in/deepan-muthukrishnan",
   instagram: "https://instagram.com",
   avatar: developerAvatar,
