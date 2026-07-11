@@ -11,11 +11,11 @@ export default function Contact() {
   const [copied, setCopied] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const isEmailJsConfigured = !!(
-    import.meta.env.VITE_EMAILJS_SERVICE_ID &&
-    import.meta.env.VITE_EMAILJS_TEMPLATE_ID &&
-    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-  );
+  // Hardcoded EmailJS configuration
+  const SERVICE_ID = "service_51v27n7";
+  const TEMPLATE_ID = "template_u5cqjpe";
+  const PUBLIC_KEY = "bZhZbTTqAVUE6a4wV";
+  const isEmailJsConfigured = true;
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_DETAILS.email);
@@ -40,9 +40,9 @@ export default function Contact() {
 
     setIsSubmitting(true);
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const serviceId = SERVICE_ID;
+    const templateId = TEMPLATE_ID;
+    const publicKey = PUBLIC_KEY;
 
     if (!serviceId || !templateId || !publicKey) {
       // Simulate cyber-secure transmission sequence for sandbox/demo mode
