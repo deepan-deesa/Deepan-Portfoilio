@@ -19,42 +19,27 @@ import { PERSONAL_DETAILS, SKILLS_DATA, CERTIFICATIONS_DATA, PROJECTS_DATA } fro
 export default function Resume() {
   const printRef = useRef<HTMLDivElement>(null);
 
-  const handlePrint = () => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-      @media print {
-        body * {
-          visibility: hidden !important;
-          background: transparent !important;
-        }
-        #real-pdf-print-sheet, #real-pdf-print-sheet * {
-          visibility: visible !important;
-        }
-        #real-pdf-print-sheet {
-          display: block !important;
-          position: absolute !important;
-          left: 0 !important;
-          top: 0 !important;
-          width: 100% !important;
-          max-width: 100% !important;
-          background: white !important;
-          color: black !important;
-          padding: 0 !important;
-          margin: 0 !important;
-          box-shadow: none !important;
-          border: none !important;
-        }
-        @page {
-          size: A4;
-          margin: 15mm 15mm;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    window.print();
-    setTimeout(() => {
-      document.head.removeChild(style);
-    }, 1000);
+  // Functions for PDF handling
+  const viewResume = () => {
+    window.open('/Resume.pdf', '_blank');
+  };
+
+  const downloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/Resume.pdf';
+    link.download = 'Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const printResume = () => {
+    const newWindow = window.open('/Resume.pdf', '_blank');
+    if (newWindow) {
+      newWindow.onload = () => {
+        newWindow.print();
+      };
+    }
   };
 
   return (
@@ -91,15 +76,21 @@ export default function Resume() {
 
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <button
-              onClick={handlePrint}
+              onClick={viewResume}
               className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-white text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-300 font-semibold text-xs uppercase tracking-widest cursor-pointer"
             >
-              <Download className="w-4 h-4" />
-              Download / Print PDF
+              <ExternalLink className="w-4 h-4" />
+              View Resume
             </button>
-            
             <button
-              onClick={handlePrint}
+              onClick={downloadResume}
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-300 font-semibold text-xs uppercase tracking-widest cursor-pointer"
+            >
+              <Download className="w-4 h-4" />
+              Download Resume
+            </button>
+            <button
+              onClick={printResume}
               className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#121216] text-white border border-white/[0.08] hover:bg-white/[0.04] transition-all duration-300 font-semibold text-xs uppercase tracking-widest cursor-pointer"
             >
               <Printer className="w-4 h-4 text-slate-400" />
