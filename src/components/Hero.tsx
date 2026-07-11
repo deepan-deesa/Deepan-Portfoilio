@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTe
 import { Sparkles, ArrowUpRight, Github, Linkedin, Award, Laptop, ShieldCheck, User } from "lucide-react";
 import { PERSONAL_DETAILS } from "../types";
 import Lanyard from "./Lanyard";
+import Shuffle from "./Shuffle";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CustomEase } from "gsap/CustomEase";
@@ -185,7 +186,18 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400"
             >
-              DEEPAN
+              <Shuffle
+                text="DEEPAN"
+                shuffleDirection="down"
+                duration={0.4}
+                animationMode="random"
+                stagger={0.04}
+                maxDelay={0.15}
+                shuffleTimes={3}
+                triggerOnHover={true}
+                tag="span"
+                textAlign="left"
+              />
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 30 }}
