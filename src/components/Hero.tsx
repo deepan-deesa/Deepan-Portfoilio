@@ -184,7 +184,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400"
+              className="block"
             >
               <Shuffle
                 text="DEEPAN"
@@ -195,8 +195,12 @@ export default function Hero() {
                 maxDelay={0.15}
                 shuffleTimes={3}
                 triggerOnHover={true}
+                triggerOnce={false}
+                threshold={0}
+                rootMargin="0px"
                 tag="span"
                 textAlign="left"
+                className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400"
               />
             </motion.span>
             <motion.span

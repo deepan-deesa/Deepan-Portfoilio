@@ -373,6 +373,22 @@ const Shuffle = ({
         onEnter: create
       });
 
+      // Fallback: if element is already in view (above-fold), ScrollTrigger onEnter may
+      // never fire, so trigger immediately via a tiny delay to let layout settle.
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const raf = requestAnimationFrame(() => {
+          if (!playingRef.current) create();
+        });
+        return () => {
+          cancelAnimationFrame(raf);
+          st.kill();
+          removeHover();
+          teardown();
+          setReady(false);
+        };
+      }
+
       return () => {
         st.kill();
         removeHover();
