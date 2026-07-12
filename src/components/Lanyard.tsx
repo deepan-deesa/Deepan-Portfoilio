@@ -39,7 +39,8 @@ export default function Lanyard({
   backImage = null,
   imageFit = 'cover',
   lanyardImage = null,
-  lanyardWidth = 1
+  lanyardWidth = 1,
+  playEntrance = false
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [generatedFront, setGeneratedFront] = useState<string | null>(null);
@@ -283,7 +284,10 @@ export default function Lanyard({
   }, [frontImage, backImage]);
 
   return (
-    <div className="lanyard-wrapper">
+    <div
+      className={`lanyard-wrapper ${playEntrance ? 'lanyard-wrapper--enter' : ''}`}
+      aria-label="Interactive portfolio ID lanyard"
+    >
       <Canvas
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}

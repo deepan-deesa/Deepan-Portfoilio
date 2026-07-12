@@ -12,7 +12,11 @@ import { CustomEase } from "gsap/CustomEase";
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 CustomEase.create("expoOut", "0.16,1,0.3,1");
 
-export default function Hero() {
+interface HeroProps {
+  lanyardEntrance?: boolean;
+}
+
+export default function Hero({ lanyardEntrance = false }: HeroProps) {
   // ─── Framer Motion values for card 3D tilt (mouse) ──────────────────────────
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
@@ -258,7 +262,11 @@ export default function Hero() {
 
         {/* Right: Interactive 3D Lanyard component */}
         <div className="lg:col-span-5 w-full h-[650px] relative flex items-center justify-center">
-          <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+          <Lanyard
+            position={[0, 0, 20]}
+            gravity={[0, -40, 0]}
+            playEntrance={lanyardEntrance}
+          />
         </div>
         {/* ══════════════════════════════════════════════════════════════════════ */}
 

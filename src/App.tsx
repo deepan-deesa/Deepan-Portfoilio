@@ -56,7 +56,7 @@ export default function App() {
       >
         <Navbar theme={theme} toggleTheme={toggleTheme} />
         <main>
-          <Hero />
+          <Hero lanyardEntrance={!loading} />
           <About />
           <ShowcaseConsole />
           <Resume />
