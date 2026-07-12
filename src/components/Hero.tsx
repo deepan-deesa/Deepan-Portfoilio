@@ -89,16 +89,16 @@ export default function Hero() {
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
-    const relX = (e.clientX - rect.left) / rect.width  - 0.5;
-    const relY = (e.clientY - rect.top)  / rect.height - 0.5;
+    const relX = (e.clientX - rect.left) / rect.width - 0.5;
+    const relY = (e.clientY - rect.top) / rect.height - 0.5;
 
     // Cap rotation at ±8°
     tiltX.set(-relY * 8);
-    tiltY.set( relX * 8);
+    tiltY.set(relX * 8);
 
     // Glass sheen
-    glossX.set(((e.clientX - rect.left) / rect.width)  * 100);
-    glossY.set(((e.clientY - rect.top)  / rect.height) * 100);
+    glossX.set(((e.clientX - rect.left) / rect.width) * 100);
+    glossY.set(((e.clientY - rect.top) / rect.height) * 100);
 
     // Sweep position mapped to card width %
     sweepX.set(((e.clientX - rect.left) / rect.width) * 140 - 20);
@@ -115,7 +115,7 @@ export default function Hero() {
 
   // ─── Framer Motion: parallax on text column ──────────────────────────────────
   const { scrollY } = useScroll();
-  const yText      = useTransform(scrollY, [0, 400], [0, 100]);
+  const yText = useTransform(scrollY, [0, 400], [0, 100]);
   const opacityText = useTransform(scrollY, [0, 300], [1, 0]);
 
   const scrollToSection = (id: string) => {
@@ -144,7 +144,7 @@ export default function Hero() {
             key={i}
             className="absolute w-[2px] h-[2px] rounded-full bg-cyan-400/40"
             style={{
-              top:  `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
             }}
             animate={{ y: [0, -30, 0], opacity: [0.1, 0.8, 0.1] }}
@@ -178,30 +178,15 @@ export default function Hero() {
           {/* Epic Title Word Reveal */}
           <h1 className="font-sans text-5xl sm:text-7xl xl:text-8xl font-black tracking-tight text-white leading-none mb-4">
             <span className="block text-slate-400 font-medium text-lg tracking-[0.2em] uppercase font-mono mb-2">
-              HELLO, MY NAME IS
+              HELLO, MY NAME IS DEEPAN
             </span>
             <motion.span
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="block"
+              className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400"
             >
-              <Shuffle
-                text="DEEPAN"
-                shuffleDirection="down"
-                duration={0.4}
-                animationMode="random"
-                stagger={0.04}
-                maxDelay={0.15}
-                shuffleTimes={3}
-                triggerOnHover={true}
-                triggerOnce={false}
-                threshold={0}
-                rootMargin="0px"
-                tag="span"
-                textAlign="left"
-                className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400"
-              />
+              DEEPAN
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 30 }}
