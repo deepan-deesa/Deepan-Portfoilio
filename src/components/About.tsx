@@ -52,8 +52,8 @@ export default function About() {
       className="relative py-24 sm:py-32 bg-[#030303] overflow-hidden px-4"
     >
       {/* Background ambient lighting */}
-      <div className="absolute top-[20%] right-[-10%] w-[350px] h-[350px] rounded-full bg-cyan-600/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[20%] left-[-10%] w-[350px] h-[350px] rounded-full bg-purple-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[20%] right-[-10%] w-[350px] h-[350px] rounded-full bg-cyan-600/10 blur-[60px] transform-gpu pointer-events-none" />
+      <div className="absolute bottom-[20%] left-[-10%] w-[350px] h-[350px] rounded-full bg-purple-600/10 blur-[60px] transform-gpu pointer-events-none" />
 
       <div className="w-full max-w-5xl mx-auto relative z-10">
         

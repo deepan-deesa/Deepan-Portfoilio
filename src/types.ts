@@ -92,26 +92,48 @@ export const SKILLS_DATA: Skill[] = [
 
 export const PROJECTS_DATA: Project[] = [
   {
-    id: "project-1",
-    title: "DocLink – Online Doctor Consultation",
-    description: "A secure, robust full-stack web application designed to enable patients to remotely consult medical professionals, improving healthcare accessibility.",
-    detailedDescription: "DocLink is a comprehensive medical web application developed as an academic project. It streamlines medical interaction by allowing secure patient accounts, virtual doctor directories, reservation modules, and interactive consultation forms. Constructed utilizing responsive frontend styling and a relational data layer to ensure optimal, HIPAA-compliant storage of clinical profiles, physician rosters, and consult times.",
-    tech: ["React.js", "Django", "PostgreSQL", "HTML", "CSS", "JavaScript"],
-    liveUrl: "https://example.com/doclink",
-    githubUrl: "https://github.com/deepanmuthu05-lang/doclink",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
-    glowColor: "rgba(14, 165, 233, 0.45)" // Cyan glow
+    id: "chainshield",
+    title: "ChainShield",
+    description: "Blockchain-powered digital evidence integrity platform protecting police evidence with SHA-256 hashing & secure chain of custody.",
+    detailedDescription: "ChainShield is a blockchain-powered digital evidence integrity platform that protects police evidence from unauthorized modifications by using SHA-256 hashing, blockchain-based integrity verification, and a secure chain of custody system.",
+    tech: ["TypeScript", "React", "Blockchain", "SHA-256", "Supabase", "Node.js"],
+    liveUrl: "https://github.com/deepan-deesa/Chainshield",
+    githubUrl: "https://github.com/deepan-deesa/Chainshield",
+    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800",
+    glowColor: "rgba(6, 182, 212, 0.45)"
   },
   {
-    id: "project-2",
-    title: "NexusForge – Developer Workspace",
-    description: "A collaborative code execution and script editing workspace utilizing modular structures and live compilation states.",
-    detailedDescription: "NexusForge offers real-time syntax checking, live testing environments for Python and web structures, and structured document storage. Implements standard file structures and user sessions, engineered during independent studies.",
-    tech: ["React.js", "Django", "Flask", "Python", "Tailwind CSS"],
-    liveUrl: "https://example.com/nexusforge",
-    githubUrl: "https://github.com/deepanmuthu05-lang",
+    id: "hiregenie-ai",
+    title: "HireGenie AI",
+    description: "AI-powered career assistant with intelligent job matching, resume analysis, interview prep, and email management.",
+    detailedDescription: "HireGenie AI is an AI-powered career assistant that helps users find jobs smarter. It offers AI job matching, resume analysis, interview preparation, application tracking, and email management.",
+    tech: ["TypeScript", "React", "AI / LLM", "Tailwind CSS", "Node.js"],
+    liveUrl: "https://github.com/deepan-deesa/HireGenie-AI",
+    githubUrl: "https://github.com/deepan-deesa/HireGenie-AI",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800",
+    glowColor: "rgba(168, 85, 247, 0.45)"
+  },
+  {
+    id: "doubleshiftai",
+    title: "DoubleShift AI",
+    description: "Intelligent workplace automation & AI workflow orchestrator boosting software team throughput.",
+    detailedDescription: "DoubleShift AI optimizes developer efficiency through dynamic task scheduling, AI assistance pipeline, and workflow automation.",
+    tech: ["TypeScript", "React", "Python", "FastAPI", "GSAP"],
+    liveUrl: "https://github.com/deepan-deesa/doubleshiftai",
+    githubUrl: "https://github.com/deepan-deesa/doubleshiftai",
     image: "https://images.unsplash.com/photo-1618401471353-b98aedd07871?auto=format&fit=crop&q=80&w=800",
-    glowColor: "rgba(168, 85, 247, 0.45)" // Purple glow
+    glowColor: "rgba(59, 130, 246, 0.45)"
+  },
+  {
+    id: "globetrotter",
+    title: "Globetrotter",
+    description: "Full-stack interactive travel companion application with destination discovery & itinerary planning.",
+    detailedDescription: "Globetrotter allows travelers to discover destinations, plan detailed day-by-day itineraries, track budgets, and share travel experiences.",
+    tech: ["TypeScript", "React", "PostgreSQL", "Tailwind CSS"],
+    liveUrl: "https://github.com/deepan-deesa/Globetrotter",
+    githubUrl: "https://github.com/deepan-deesa/Globetrotter",
+    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&q=80&w=800",
+    glowColor: "rgba(16, 185, 129, 0.45)"
   }
 ];
 

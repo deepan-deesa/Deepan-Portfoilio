@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 
 export default function InteractiveCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  
+  const isHoveredRef = useRef(false);
+
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
@@ -29,27 +30,27 @@ export default function InteractiveCursor() {
     const handleMouseDown = () => setIsClicked(true);
     const handleMouseUp = () => setIsClicked(false);
 
-    // Event delegation to check if mouse is hovering over interactive elements
+    // Event delegation with ref check to avoid redundant state updates
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (
+      const shouldHover = Boolean(
         target.tagName === "BUTTON" ||
         target.tagName === "A" ||
         target.closest("button") ||
         target.closest("a") ||
         target.closest("[role='button']") ||
         target.closest(".interactive-hover")
-      ) {
-        setIsHovered(true);
-      } else {
-        setIsHovered(false);
+      );
+      if (shouldHover !== isHoveredRef.current) {
+        isHoveredRef.current = shouldHover;
+        setIsHovered(shouldHover);
       }
     };
 
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mousemove", moveCursor, { passive: true });
+    window.addEventListener("mousedown", handleMouseDown, { passive: true });
+    window.addEventListener("mouseup", handleMouseUp, { passive: true });
+    window.addEventListener("mouseover", handleMouseOver, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
@@ -66,19 +67,20 @@ export default function InteractiveCursor() {
       {/* Laser point cursor */}
       <motion.div
         id="laser-cursor-pointer"
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white z-50 pointer-events-none mix-blend-difference"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white z-50 pointer-events-none mix-blend-difference transform-gpu"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
           translateX: "-50%",
           translateY: "-50%",
+          willChange: "transform",
         }}
       />
 
       {/* Futuristic interactive trailing outer glow circle */}
       <motion.div
         id="laser-cursor-trail"
-        className="fixed top-0 left-0 rounded-full border border-cyan-500/30 bg-cyan-400/[0.02] z-50 pointer-events-none"
+        className="fixed top-0 left-0 rounded-full border border-cyan-500/30 bg-cyan-400/[0.02] z-50 pointer-events-none transform-gpu"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -86,6 +88,7 @@ export default function InteractiveCursor() {
           translateY: "-50%",
           width: isHovered ? 64 : 32,
           height: isHovered ? 64 : 32,
+          willChange: "transform",
         }}
         animate={{
           scale: isClicked ? 0.8 : 1,
@@ -97,15 +100,17 @@ export default function InteractiveCursor() {
         transition={{ type: "spring", stiffness: 400, damping: 28 }}
       />
 
-      {/* Large Ambient Mouse Spot Light (behind content) */}
+      {/* Ultra-lightweight GPU Radial Ambient Spot Light (no expensive blur filter on mousemove) */}
       <motion.div
         id="mouse-ambient-spotlight"
-        className="fixed top-0 left-0 w-[450px] h-[450px] rounded-full bg-gradient-to-r from-blue-600/5 to-purple-600/5 blur-[120px] pointer-events-none z-0"
+        className="fixed top-0 left-0 w-[450px] h-[450px] rounded-full pointer-events-none z-0 transform-gpu"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
           translateX: "-50%",
           translateY: "-50%",
+          background: "radial-gradient(circle, rgba(37,99,235,0.07) 0%, rgba(147,51,234,0.03) 45%, transparent 70%)",
+          willChange: "transform",
         }}
       />
     </>

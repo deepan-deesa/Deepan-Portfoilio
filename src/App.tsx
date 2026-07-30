@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import Preloader from "./components/Preloader";
-import InteractiveCursor from "./components/InteractiveCursor";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -9,8 +8,12 @@ import Contact from "./components/Contact";
 import Resume from "./components/Resume";
 import Footer from "./components/Footer";
 
+import MagicBento from "./components/MagicBento";
+
+const InteractiveCursor = lazy(() => import("./components/InteractiveCursor"));
+
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     return (localStorage.getItem("theme") as "light" | "dark") || "dark";
   });
@@ -29,35 +32,45 @@ export default function App() {
   }, [theme]);
 
   useEffect(() => {
-    // Lock scroll when loading, unlock when loading completes
-    if (loading) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [loading]);
+    document.body.style.overflow = "unset";
+  }, []);
 
   return (
     <div className="bg-[#030303] text-white min-h-screen relative selection:bg-cyan-500/20 selection:text-cyan-200 overflow-x-hidden transition-colors duration-500">
-      {/* 1. Futuristic Digital Preloader overlay */}
-      <Preloader onComplete={() => setLoading(false)} />
+      {/* Laser cursor */}
+      <Suspense fallback={null}>
+        <InteractiveCursor />
+      </Suspense>
 
-      {/* 2. Custom trailing laser pointer */}
-      {!loading && <InteractiveCursor />}
-
-      {/* 3. Main cinematic layout container */}
-      <div 
-        className={`transition-all duration-1000 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-          loading ? "opacity-0 scale-[0.98] blur-xl pointer-events-none" : "opacity-100 scale-100 blur-0"
-        }`}
-      >
+      {/* Main layout */}
+      <div>
         <Navbar theme={theme} toggleTheme={toggleTheme} />
         <main>
           <Hero lanyardEntrance={!loading} />
           <About />
+          <section className="py-20 px-4 flex flex-col items-center justify-center bg-[#030303]">
+            <div className="max-w-6xl w-full mx-auto flex flex-col items-center">
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-2 text-center">
+                Interactive Grid
+              </h2>
+              <p className="text-slate-400 mb-10 text-center max-w-md">
+                Hover, tilt and interact with our feature modules.
+              </p>
+              {/* @ts-ignore */}
+              <MagicBento
+                textAutoHide={true}
+                enableStars={true}
+                enableSpotlight={true}
+                enableBorderGlow={true}
+                enableTilt={true}
+                enableMagnetism={true}
+                clickEffect={true}
+                spotlightRadius={300}
+                particleCount={12}
+                glowColor="132, 0, 255"
+              />
+            </div>
+          </section>
           <ShowcaseConsole />
           <Resume />
           <Contact />

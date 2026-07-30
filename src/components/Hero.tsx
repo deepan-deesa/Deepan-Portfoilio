@@ -4,9 +4,12 @@ import { Sparkles, ArrowUpRight, Github, Linkedin, Award, Laptop, ShieldCheck, U
 import { PERSONAL_DETAILS } from "../types";
 import Lanyard from "./Lanyard";
 import Shuffle from "./Shuffle";
+import SplitText from "./SplitText";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CustomEase } from "gsap/CustomEase";
+
+import LightRays from "./LightRays";
 
 // Register GSAP plugins — CustomEase gives us exact cubic-bezier(0.16,1,0.3,1)
 gsap.registerPlugin(ScrollTrigger, CustomEase);
@@ -41,20 +44,13 @@ export default function Hero({ lanyardEntrance = false }: HeroProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   // ─── Refs ─────────────────────────────────────────────────────────────────────
-  // gsapEntranceRef → ONLY GSAP writes to this element (entrance)
-  // floatRef        → ONLY Framer Motion writes (idle float)
-  // cardRef         → ONLY Framer Motion writes (3D tilt + hover)
-  // These three layers are siblings/children — zero GSAP↔Framer conflicts
   const gsapEntranceRef = useRef<HTMLDivElement>(null);
 
   // ─── GSAP ENTRANCE via ScrollTrigger ─────────────────────────────────────────
-  // Card starts outside viewport (y: 140, scale 0.8, rotateX 20, rotateY -10,
-  // blur 10px, opacity 0). Fires once as card scrolls up into view.
   useEffect(() => {
     const el = gsapEntranceRef.current;
     if (!el) return;
 
-    // Hard-set invisible initial state before first paint
     gsap.set(el, {
       opacity: 0,
       y: 140,
@@ -66,8 +62,6 @@ export default function Hero({ lanyardEntrance = false }: HeroProps) {
       transformOrigin: "center 80%",
     });
 
-    // ScrollTrigger: fires once the card's top edge crosses 92% down the viewport
-    // (i.e., when the user scrolls it into view from the bottom)
     const ctx = gsap.context(() => {
       gsap.to(el, {
         opacity: 1,
@@ -77,10 +71,10 @@ export default function Hero({ lanyardEntrance = false }: HeroProps) {
         rotateY: 0,
         filter: "blur(0px)",
         duration: 1.4,
-        ease: "expoOut",   // our CustomEase: cubic-bezier(0.16, 1, 0.3, 1)
+        ease: "expoOut",
         scrollTrigger: {
           trigger: el,
-          start: "top 92%",   // fires when top of card hits 92% of viewport height
+          start: "top 92%",
           once: true,
         },
       });
@@ -96,15 +90,12 @@ export default function Hero({ lanyardEntrance = false }: HeroProps) {
     const relX = (e.clientX - rect.left) / rect.width - 0.5;
     const relY = (e.clientY - rect.top) / rect.height - 0.5;
 
-    // Cap rotation at ±8°
     tiltX.set(-relY * 8);
     tiltY.set(relX * 8);
 
-    // Glass sheen
     glossX.set(((e.clientX - rect.left) / rect.width) * 100);
     glossY.set(((e.clientY - rect.top) / rect.height) * 100);
 
-    // Sweep position mapped to card width %
     sweepX.set(((e.clientX - rect.left) / rect.width) * 140 - 20);
   };
 
@@ -132,9 +123,20 @@ export default function Hero({ lanyardEntrance = false }: HeroProps) {
       id="home"
       className="relative min-h-[110vh] flex flex-col items-center justify-center bg-[#030303] overflow-hidden pt-28 pb-16 px-4"
     >
-      {/* Cinematic animated blobs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-900/10 blur-[150px] animate-pulse" />
-      <div className="absolute bottom-[10%] right-[-10%] w-[45vw] h-[45vw] rounded-full bg-purple-900/10 blur-[150px] animate-pulse" />
+      {/* Interactive LightRays background */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#00ffff"
+          raysSpeed={1.5}
+          lightSpread={0.8}
+          rayLength={1.2}
+          followMouse={true}
+          mouseInfluence={0.1}
+          noiseAmount={0.1}
+          distortion={0.05}
+        />
+      </div>
 
       {/* Digital Cyber-Grid Background overlay */}
       <div
@@ -184,22 +186,37 @@ export default function Hero({ lanyardEntrance = false }: HeroProps) {
             <span className="block text-slate-400 font-medium text-lg tracking-[0.2em] uppercase font-mono mb-2">
               HELLO, MY NAME IS DEEPAN
             </span>
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400"
-            >
-              DEEPAN
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-              className="block text-3xl sm:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mt-2"
-            >
-              {PERSONAL_DETAILS.role}
-            </motion.span>
+            <Shuffle
+              text="DEEPAN"
+              className="text-5xl sm:text-7xl xl:text-8xl font-black tracking-tight text-white !line-height-none"
+              shuffleDirection="right"
+              duration={0.35}
+              animationMode="evenodd"
+              shuffleTimes={1}
+              ease="power3.out"
+              stagger={0.03}
+              threshold={0.1}
+              triggerOnce={true}
+              triggerOnHover={true}
+              respectReducedMotion={true}
+              textAlign="left"
+              tag="span"
+            />
+            <div className="block mt-2">
+              <SplitText
+                text={PERSONAL_DETAILS.role}
+                className="text-3xl sm:text-5xl font-bold tracking-tight text-cyan-400"
+                delay={40}
+                duration={0.7}
+                ease="power3.out"
+                splitType="words, chars"
+                from={{ opacity: 0, y: 30 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.1}
+                textAlign="left"
+                tag="div"
+              />
+            </div>
           </h1>
 
           {/* Core Introduction Text */}
@@ -268,11 +285,10 @@ export default function Hero({ lanyardEntrance = false }: HeroProps) {
             playEntrance={lanyardEntrance}
           />
         </div>
-        {/* ══════════════════════════════════════════════════════════════════════ */}
 
       </div>
 
-      {/* Panoramic Awwwards Glowing Marquee Ribbon */}
+      {/* Panoramic Glowing Marquee Ribbon */}
       <div className="absolute bottom-0 left-0 right-0 py-6 bg-[#060606] border-y border-white/[0.03] overflow-hidden z-10 flex select-none pointer-events-none">
         <div className="animate-marquee whitespace-nowrap flex items-center gap-12 font-mono text-xs text-slate-500/75 tracking-[0.25em] uppercase">
           {[...Array(4)].map((_, j) => (

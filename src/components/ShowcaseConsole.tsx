@@ -115,8 +115,8 @@ export default function ShowcaseConsole() {
       className="relative py-24 sm:py-32 bg-[#030303] overflow-hidden px-4"
     >
       {/* Background radial atmosphere */}
-      <div className="absolute top-[30%] left-[5%] w-[450px] h-[450px] rounded-full bg-blue-600/[0.03] blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-[30%] right-[5%] w-[450px] h-[450px] rounded-full bg-purple-600/[0.03] blur-[150px] pointer-events-none" />
+      <div className="absolute top-[30%] left-[5%] w-[450px] h-[450px] rounded-full bg-blue-600/[0.08] blur-[60px] transform-gpu pointer-events-none" />
+      <div className="absolute bottom-[30%] right-[5%] w-[450px] h-[450px] rounded-full bg-purple-600/[0.08] blur-[60px] transform-gpu pointer-events-none" />
 
       <div className="w-full max-w-5xl mx-auto relative z-10">
         {/* Section Heading */}
