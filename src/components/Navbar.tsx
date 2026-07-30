@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, Sparkles, Terminal, Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { PERSONAL_DETAILS } from "../types";
 import PillNav from "./PillNav";
 
@@ -46,8 +45,8 @@ export default function Navbar({ theme = "dark", toggleTheme }: NavbarProps) {
   }, []);
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 flex justify-center items-center px-4 pointer-events-auto">
-      <div className="flex items-center gap-3">
+    <>
+      <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex justify-center items-center pointer-events-auto">
         {/* @ts-ignore */}
         <PillNav
           logo={PERSONAL_DETAILS.avatar}
@@ -61,17 +60,17 @@ export default function Navbar({ theme = "dark", toggleTheme }: NavbarProps) {
           ease="power3.easeOut"
           initialLoadAnimation={true}
         />
+      </header>
 
-        {toggleTheme && (
-          <button
-            onClick={toggleTheme}
-            className="p-2.5 rounded-full bg-[#08080a] border border-white/10 text-cyan-400 hover:text-white hover:border-cyan-500/50 transition-all duration-300 shadow-lg"
-            title="Toggle theme"
-          >
-            {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </button>
-        )}
-      </div>
-    </header>
+      {toggleTheme && (
+        <button
+          onClick={toggleTheme}
+          className="fixed top-5 right-5 z-50 p-3 rounded-full bg-[#08080a]/90 backdrop-blur-md border border-cyan-500/20 text-cyan-400 hover:text-white hover:border-cyan-400 hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.2)] cursor-pointer"
+          title="Toggle theme"
+        >
+          {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+        </button>
+      )}
+    </>
   );
 }
