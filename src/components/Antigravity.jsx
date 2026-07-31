@@ -5,7 +5,7 @@ import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
 const AntigravityInner = ({
-  count = 300,
+  count = 120,
   magnetRadius = 10,
   ringRadius = 10,
   waveSpeed = 0.4,

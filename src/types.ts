@@ -97,7 +97,7 @@ export const PROJECTS_DATA: Project[] = [
     description: "Blockchain-powered digital evidence integrity platform protecting police evidence with SHA-256 hashing & secure chain of custody.",
     detailedDescription: "ChainShield is a blockchain-powered digital evidence integrity platform that protects police evidence from unauthorized modifications by using SHA-256 hashing, blockchain-based integrity verification, and a secure chain of custody system.",
     tech: ["TypeScript", "React", "Blockchain", "SHA-256", "Supabase", "Node.js"],
-    liveUrl: "https://github.com/deepan-deesa/Chainshield",
+    liveUrl: "https://chainshield-three.vercel.app/",
     githubUrl: "https://github.com/deepan-deesa/Chainshield",
     image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800",
     glowColor: "rgba(6, 182, 212, 0.45)"
@@ -130,7 +130,7 @@ export const PROJECTS_DATA: Project[] = [
     description: "Full-stack interactive travel companion application with destination discovery & itinerary planning.",
     detailedDescription: "Globetrotter allows travelers to discover destinations, plan detailed day-by-day itineraries, track budgets, and share travel experiences.",
     tech: ["TypeScript", "React", "PostgreSQL", "Tailwind CSS"],
-    liveUrl: "https://github.com/deepan-deesa/Globetrotter",
+    liveUrl: "https://globetrotter-nine-jade.vercel.app/login",
     githubUrl: "https://github.com/deepan-deesa/Globetrotter",
     image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&q=80&w=800",
     glowColor: "rgba(16, 185, 129, 0.45)"

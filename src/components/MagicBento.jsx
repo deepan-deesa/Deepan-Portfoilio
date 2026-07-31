@@ -35,7 +35,7 @@ const cardData = [
     title: 'Globetrotter',
     description: 'Interactive travel companion app for destination discovery & itineraries.',
     label: 'Full Stack',
-    url: 'https://github.com/deepan-deesa/Globetrotter'
+    url: 'https://globetrotter-nine-jade.vercel.app/login'
   },
   {
     color: '#120F17',
@@ -179,6 +179,7 @@ const ParticleCard = ({
     if (disableAnimations || !cardRef.current) return;
 
     const element = cardRef.current;
+    let mouseRafId = null;
 
     const handleMouseEnter = () => {
       isHoveredRef.current = true;
@@ -197,6 +198,7 @@ const ParticleCard = ({
 
     const handleMouseLeave = () => {
       isHoveredRef.current = false;
+      if (mouseRafId) cancelAnimationFrame(mouseRafId);
       clearAllParticles();
 
       if (enableTilt) {
@@ -227,30 +229,35 @@ const ParticleCard = ({
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      if (enableTilt) {
-        const rotateX = ((y - centerY) / centerY) * -10;
-        const rotateY = ((x - centerX) / centerX) * 10;
+      if (mouseRafId) cancelAnimationFrame(mouseRafId);
 
-        gsap.to(element, {
-          rotateX,
-          rotateY,
-          duration: 0.1,
-          ease: 'power2.out',
-          transformPerspective: 1000
-        });
-      }
+      mouseRafId = requestAnimationFrame(() => {
+        if (!element) return;
+        if (enableTilt) {
+          const rotateX = ((y - centerY) / centerY) * -10;
+          const rotateY = ((x - centerX) / centerX) * 10;
 
-      if (enableMagnetism) {
-        const magnetX = (x - centerX) * 0.05;
-        const magnetY = (y - centerY) * 0.05;
+          gsap.to(element, {
+            rotateX,
+            rotateY,
+            duration: 0.1,
+            ease: 'power2.out',
+            transformPerspective: 1000
+          });
+        }
 
-        magnetismAnimationRef.current = gsap.to(element, {
-          x: magnetX,
-          y: magnetY,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-      }
+        if (enableMagnetism) {
+          const magnetX = (x - centerX) * 0.05;
+          const magnetY = (y - centerY) * 0.05;
+
+          magnetismAnimationRef.current = gsap.to(element, {
+            x: magnetX,
+            y: magnetY,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        }
+      });
     };
 
     const handleClick = e => {

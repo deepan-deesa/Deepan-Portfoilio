@@ -21,41 +21,24 @@ export default function Footer() {
   };
 
   return (
-    <footer id="main-footer" className="relative bg-[#030303] border-t border-white/[0.03] py-16 px-4">
-      <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+    <footer id="main-footer" className="relative bg-[#030303] border-t border-white/[0.03] py-8 px-4">
+      <div className="w-full max-w-5xl mx-auto flex items-center justify-between text-center">
         
-        {/* Brand & Scholar Credit */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center text-white">
-            <Terminal className="w-4.5 h-4.5 text-white" />
-          </div>
-          <div className="text-left">
-            <span className="block font-sans font-black text-sm tracking-wide text-white">
-              {PERSONAL_DETAILS.name}
-            </span>
-            <span className="block text-[10px] font-mono text-slate-500 uppercase tracking-widest mt-0.5">
-              SNS COLLEGE OF ENGINEERING scholar
-            </span>
-          </div>
-        </div>
-
-        {/* Navigation / Links */}
-        <div className="flex flex-wrap justify-center gap-6 text-xs font-mono text-slate-400">
-          <span>&copy; {new Date().getFullYear()} ALL RIGHTS SECURED</span>
-          <span>•</span>
-          <span>B.E. COMPUTER SCIENCE & ENGINEERING</span>
+        {/* Simple Credit */}
+        <div className="font-mono text-sm font-semibold tracking-wider text-slate-300">
+          Created by <span className="text-cyan-400 font-bold">Deepan</span>
         </div>
 
         {/* Back to Top */}
-        <div className="relative">
+        <div>
           <button
             onClick={scrollToTop}
-            className={`p-3 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] text-slate-400 hover:text-white transition-all cursor-pointer ${
+            className={`p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] text-slate-400 hover:text-white transition-all cursor-pointer ${
               showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
             }`}
             title="Back to Top"
           >
-            <ArrowUp className="w-4 h-4 animate-bounce" />
+            <ArrowUp className="w-4 h-4" />
           </button>
         </div>
 

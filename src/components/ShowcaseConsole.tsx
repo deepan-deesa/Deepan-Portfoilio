@@ -71,23 +71,36 @@ export default function ShowcaseConsole() {
     }
   }, [activeTab, selectedProjectId]);
 
+  const cardRafRef = useRef<Record<string, number>>({});
+
   const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
-    setCardTilts((prev) => ({
-      ...prev,
-      [id]: {
-        rx: -y / 12,
-        ry: x / 12,
-        gx: ((e.clientX - rect.left) / rect.width) * 100,
-        gy: ((e.clientY - rect.top) / rect.height) * 100,
-      }
-    }));
+    if (cardRafRef.current[id]) {
+      cancelAnimationFrame(cardRafRef.current[id]);
+    }
+
+    cardRafRef.current[id] = requestAnimationFrame(() => {
+      setCardTilts((prev) => ({
+        ...prev,
+        [id]: {
+          rx: -y / 12,
+          ry: x / 12,
+          gx: ((clientX - rect.left) / rect.width) * 100,
+          gy: ((clientY - rect.top) / rect.height) * 100,
+        }
+      }));
+    });
   };
 
   const handleCardMouseLeave = (id: string) => {
+    if (cardRafRef.current[id]) {
+      cancelAnimationFrame(cardRafRef.current[id]);
+    }
     setCardTilts((prev) => ({
       ...prev,
       [id]: { rx: 0, ry: 0, gx: 50, gy: 50 }

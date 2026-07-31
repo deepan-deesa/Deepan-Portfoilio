@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 
 import MagicBento from "./components/MagicBento";
 
+import Particles from "./components/Particles";
+
 const InteractiveCursor = lazy(() => import("./components/InteractiveCursor"));
 
 export default function App() {
@@ -37,13 +39,30 @@ export default function App() {
 
   return (
     <div className="bg-[#030303] text-white min-h-screen relative selection:bg-cyan-500/20 selection:text-cyan-200 overflow-x-hidden transition-colors duration-500">
+      {/* Global Interactive Particles Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-60">
+        {/* @ts-ignore */}
+        <Particles
+          particleColors={["#ffffff", "#06b6d4", "#3b82f6"]}
+          particleCount={120}
+          particleSpread={10}
+          speed={0.08}
+          particleBaseSize={80}
+          moveParticlesOnHover={true}
+          particleHoverFactor={1}
+          alphaParticles={false}
+          disableRotation={false}
+          pixelRatio={typeof window !== 'undefined' && window.devicePixelRatio > 1 ? 1 : 0.75}
+        />
+      </div>
+
       {/* Laser cursor */}
       <Suspense fallback={null}>
         <InteractiveCursor />
       </Suspense>
 
       {/* Main layout */}
-      <div>
+      <div className="relative z-10">
         <Navbar theme={theme} toggleTheme={toggleTheme} />
         <main>
           <Hero lanyardEntrance={!loading} />
