@@ -1,5 +1,4 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import Preloader from "./components/Preloader";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -15,7 +14,6 @@ import Particles from "./components/Particles";
 const InteractiveCursor = lazy(() => import("./components/InteractiveCursor"));
 
 export default function App() {
-  const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     return (localStorage.getItem("theme") as "light" | "dark") || "dark";
   });
@@ -65,7 +63,7 @@ export default function App() {
       <div className="relative z-10">
         <Navbar theme={theme} toggleTheme={toggleTheme} />
         <main>
-          <Hero lanyardEntrance={!loading} />
+          <Hero lanyardEntrance={true} />
           <About />
           <section className="py-20 px-4 flex flex-col items-center justify-center bg-[#030303]">
             <div className="max-w-6xl w-full mx-auto flex flex-col items-center">
